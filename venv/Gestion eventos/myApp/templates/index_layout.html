@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conecta</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'img/designer.ico' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'Bootstrap/bootstrap-5.3.2-dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'Bootstrap/bootstrap-icons-1.11.3/font/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'Css/user.css' %}">
+   
+</head>
+<body class="sombra bg-ligh">
+
+    <nav class="mb-0 navbar navbar-expand-lg navbar-dark bg-dark sombra">
+        <div class="container">
+          <a href="{% static 'index.html' %}" class="navbar-brand">
+            <img class="rounded-circle" id="logo" src="{% static './img/designer.png' %}" alt="log" >
+          </a>
+    
+          
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+        {% if user.is_authenticated %}
+          <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarSeccion('seccion1')"> Eventos </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarSeccion('seccion2')"> Locaciones </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="mostrarSeccion('seccion3')"> Participantes</a>
+              </li>
+              
+            
+            </ul>
+        {% else %}
+
+            <button onclick="showLoginModal()" class="btn btn-dark " id="btnLogin">Iniciar Sesión</button>
+
+         {% endif %}
+
+          </div>
+    
+        </div>
+    
+      </nav>
+
+    {% block contenido %}
+    {% endblock %}
+
+ 
+
+  <footer class="bg-dark text-white text-center py-3">
+        <div class="row">
+            <div class="col-md-4 p-1">
+                <span>Teléfono:</span>
+                <span>+53 58839704</span>
+                <a href="mailto:angelalgasmontero@gmail.com" class="text-white d-block">Email: angelalgasmontero@gmail.com</a>
+            </div>
+            <div class="col-md-4 p-1">
+              <p>&copy; Todos los derechos reservados</p>
+            </div>
+            <div class="col-md-4 p-1">
+                <a href="https://www.facebook.com" class="social-link">
+                    <img src="{% static './img/facebook.png' %}" width="45" height="45" alt="Facebook">
+                </a>
+                <a href="https://wa.me/5358839704" class="social-link">
+                    <img src="{% static './img/whatsapp.png' %}" width="45" height="45" alt="WhatsApp">
+                </a>
+                <a href="https://t.me/GalansLage" class="social-link">
+                    <img src="{% static './img/telegram.png' %}" width="45" height="45" alt="Telegram">
+                </a>
+            </div>
+        </div>
+</footer>
+
+
+<script src = "{% static 'js/scrip.js' %}"></script>
+<script src="{% static 'bootstrap/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/package/dist/umd/popper.min.js' %}"></script>
+<script src="{% static 'bootstrap/bootstrap-4.5.3-dist/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+    
+</body>
+</html>

@@ -1,0 +1,261 @@
+{% extends 'index_layout.html' %}
+{% load static %}
+
+{% block contenido %}
+    
+
+      <div id="content" class="p-4 p-md-5">
+        <article>
+          <section id="seccion1" class="seccion-visible">
+
+
+            <div class="container mt-4">
+                <h1>Eventos</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="table-danger">
+                            <th scope="col">Selección</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Hora</th>
+                            <th scope="col">Costo</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí van las filas de datos (eventos) -->
+                        <!-- Por ejemplo: -->
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" id="myCheck">
+                                </div>
+                            </td>
+                            <td><input type="text" id="title" class="form-control" value="Concierto de Jazz" readOnly></td>
+                            <td><input type="text" id="description" class="form-control" value="Disfruta de una noche de jazz en vivo." readOnly></td>
+                            <td><input type="date" id="date" class="form-control" value="2024-07-15" readOnly></td>
+                            <td><input type="time" id="time" class="form-control" value="14:30" readOnly></td>
+                            <td><input type="number" id="cost" class="form-control" value="50" readOnly></td>
+
+                        </tr>
+                        <!-- Agrega más filas de eventos aquí -->
+                    </tbody>
+                </table>
+
+                <!-- Botones del crude -->
+
+                <button onclick="showLoginModal()" type="button" class="btn btn-success">Crear</button>
+                <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
+                <button class="btn btn-warning" type="button" id="myButton" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
+                <button class="btn btn-danger" type="button" id="myBut" >Eliminar</button>
+
+           
+            
+            
+        
+          </section>
+          <section id="seccion2" class="seccion-oculta">
+            <div class="container mt-4">
+                <h1>Locaciones</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="table-danger">
+                            <th scope="col">Selección</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Capacidad</th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí van las filas de datos (eventos) -->
+                        <!-- Por ejemplo: -->
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" id="myCheck2">
+                                </div>
+                            </td>
+                            <td><input type="text" id="namePlace" class="form-control" value="E3" readOnly></td>
+                            <td><input type="text" id="direction" class="form-control" value="Calle 3 edf 21" readOnly></td>
+                            <td><input type="text" id="cap" class="form-control" value="50" readOnly></td>
+                            
+                        </tr>
+                        <!-- Agrega más filas de eventos aquí -->
+                    </tbody>
+                </table>
+
+                <!-- Botones del crude -->
+
+                <button onclick="showLoginModal2()" type="button" class="btn btn-success">Crear</button>
+                <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
+                <button class="btn btn-warning" type="button" id="myButton2" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
+                <button class="btn btn-danger" type="button" id="myBu" >Eliminar</button>
+
+           
+            
+          </section>
+          <section id="seccion3" class="seccion-oculta">
+            <div class="container mt-4">
+                <h1>Participantes</h1>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="table-danger">
+                            <th scope="col">Selección</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">correo</th>
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí van las filas de datos (eventos) -->
+                        <!-- Por ejemplo: -->
+                        <tr>
+                            <td>
+                                <div class="form-check">
+                                  <input type="checkbox" class="form-check-input" id="myCheck3">
+                                </div>
+                            </td>
+                            <td><input type="text" id="name" class="form-control" value="Kira" readOnly></td>
+                            <td><input type="text" id="gmail" class="form-control" value="galanslage@gmail.com" readOnly></td>
+                            
+                        </tr>
+                        <!-- Agrega más filas de eventos aquí -->
+                    </tbody>
+                </table>
+
+                <!-- Botones del crude -->
+
+                <button onclick="showLoginModal3()" type="button" class="btn btn-success">Crear</button>
+                <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
+                <button class="btn btn-warning" type="button" id="myButton3" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
+                <button class="btn btn-danger" type="button" id="myButt" >Eliminar</button>
+
+           
+            
+          </section>
+          
+        </article>
+      </div>
+
+<!-- Formulario de Crear Evento-->
+<div class="modal fade" id="overlay" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <!-- Contenido del formulario de inicio de sesión -->
+        <div class="modal-header">
+          <h5 class="modal-title">Crear Evento</h5>
+          <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">✖️</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título" required>
+                </div>
+                <div class="form-group">
+                    <label for="descripcion" class="form-label">Descripción</label>
+                    <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="costo" class="form-label">Costo</label>
+                    <input type="text" class="form-control" id="costo" placeholder="Ingrese el costo" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha" class="form-label">Fecha</label>
+                    <input type="date" class="form-control" id="fecha" required>
+                </div>
+                <div class="form-group">
+                    <label for="hora" class="form-label">Hora</label>
+                    <input type="time" class="form-control" id="hora" required>
+                </div>
+                <div class="form-group">
+                    <label for="organizador" class="form-label">Organizador</label>
+                    <input type="text" class="form-control" id="organizador" placeholder="Ingrese el nombre del organizador" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+        </div> 
+      </div>
+    </div>
+</div>
+
+<!-- Formulario de Crear Locaciones-->
+<div class="modal fade" id="overlay2" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <!-- Contenido del formulario de Modificar -->
+        <div class="modal-header">
+          <h5 class="modal-title">Añadir locación</h5>
+          <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">✖️</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título" required>
+                </div>
+                <div class="form-group">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="costo" class="form-label">Costo</label>
+                    <input type="text" class="form-control" id="costo" placeholder="Ingrese el costo" required>
+                </div>
+                <div class="form-group">
+                    <label for="capacidad" class="form-label">Capacidad</label>
+                    <input type="date" class="form-control" id="fecha" required>
+                </div>
+                            
+                <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+        </div> 
+      </div>
+    </div>
+</div>
+
+<!-- Formulario de Crear Participante-->
+<div class="modal fade" id="overlay3" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <!-- Contenido del formulario de Modificar -->
+        <div class="modal-header">
+          <h5 class="modal-title">Añadir locación</h5>
+          <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">✖️</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título" required>
+                </div>
+                <div class="form-group">
+                    <label for="correo" class="form-label">Correo</label>
+                    <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="costo" class="form-label">Costo</label>
+                    <input type="text" class="form-control" id="costo" placeholder="Ingrese el costo" required>
+                </div>
+                <div class="form-group">
+                    <label for="capacidad" class="form-label">Capacidad</label>
+                    <input type="date" class="form-control" id="fecha" required>
+                </div>
+                            
+                <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+        </div> 
+    </div>
+</div>
+
+{% endblock %}

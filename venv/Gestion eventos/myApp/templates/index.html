@@ -1,0 +1,191 @@
+{% extends 'index_layout.html' %}
+{% load static %}
+
+{% block contenido %}
+{% if error %}
+<div class="alert">'NO ERES UN ORGANIZADOR'</div>
+{% endif %}
+
+  <!-- Barra de navegacion -->
+
+    <div class="m-0 wrapper d-flex align-items-stretch">
+      
+      <nav id="sidebar" class="bg-dark">
+        <div class="p-4 pt-5 ">
+            <ul class="list-unstyled components mb-5">
+              <li>
+                <a href="#" onclick="mostrarSeccion('seccion1')"> Info </a>
+              </li>
+              <li class="">
+                <a href="#" onclick="mostrarSeccion('seccion2')"> Eventos</a>
+              </li>
+                
+            </ul>
+
+            
+        </div>
+  
+      </nav>
+      
+      <div id="content" class="p-4 p-md-5">
+        <article>
+          <div class="container-fluid ">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only ">Toggle Menu</span>
+            </button>
+            <!-- <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button> -->
+            
+        </div>
+          <section id="seccion1" class="seccion-visible p-3">
+            <header class="text-center py-5 shadow">
+              <h1 class="display-4">¡Bienvenidos al Evento Online!</h1>
+              <p class="lead">Descubre charlas inspiradoras, talleres y más.</p>
+          
+            </header>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              
+          </nav>
+            <h2>¡Bienvenido a nuestra plataforma de Conferencias y Seminarios en Línea!</h2>
+            <p>
+            En nuestra página web, te ofrecemos una experiencia enriquecedora al descubrir y participar en emocionantes conferencias y seminarios en línea. Si estás buscando ampliar tus conocimientos, conectarte con expertos destacados y sumergirte en aprendizajes de calidad, <b>¡has llegado al lugar perfecto!</b>
+            </p>
+            <p> Nuestros eventos en línea abarcan una amplia variedad de temas, desde negocios y tecnología hasta arte y cultura. Te brindamos acceso a sesiones inspiradoras, charlas magistrales, paneles de expertos y talleres interactivos, todo ello desde la comodidad de tu hogar o cualquier lugar que elijas.</p>
+          
+            <h3>¿Por qué unirte a nuestras Conferencias y Seminarios en Línea?</h3>
+      
+            <ul>
+              <li>
+                Expertos de renombre: Contamos con oradores y presentadores reconocidos a nivel nacional e internacional, quienes compartirán sus conocimientos y experiencias contigo.
+              </li>
+              <li>
+                Aprendizaje de calidad: Obtén nuevas perspectivas, adquiere habilidades actualizadas y mantente al tanto de las últimas tendencias en tu campo de interés.
+              </li>
+              <li>
+                Networking global: Conecta con profesionales apasionados de todo el mundo, amplía tu red de contactos y establece relaciones valiosas.
+              </li>
+              <li>
+                Flexibilidad horaria: Nuestros eventos en línea se adaptan a tu agenda. Podrás disfrutar de las conferencias en vivo o acceder a ellas más tarde, si no puedes asistir en tiempo real.
+              </li>
+            </ul>
+          <p>
+              No pierdas la oportunidad de formar parte de nuestra comunidad de aprendizaje virtual. Explora nuestra selección de próximas conferencias y seminarios, y regístrate hoy mismo para asegurar tu lugar.
+              <br> <br>
+              <b>¡Esperamos contar contigo en nuestros emocionantes eventos en línea!</b>
+            </p>
+          </section>
+
+          <section id="seccion2" class="seccion-oculta">
+          <div class="container mt-5 p-3">
+
+            <h1>Panel de Búsqueda de Eventos</h1>
+            <input type="text" id="searchInput" class="form-control mb-3 rounded-pill"  placeholder="Buscar evento por nombre">
+           <ul id="eventList" class="list-group"></ul>
+
+          
+            <h2 class="mb-4">Incripción de Eventos</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-danger">
+                      <th>Inscribirme</th>
+                      <th>Título</th>
+                      <th>Descripción</th>
+                      <th>Costo</th>
+                      <th>Fecha</th>
+                      <th>Hora</th>
+                      <th>Organizador</th> 
+                      <th>Local</th>
+                      <th>Direccion</th>
+                      <th>Capacidad</th>                   
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Aquí puedes agregar más filas de conferencias -->
+                    <tr>
+                      <td>
+                        <div class="form-check">
+
+                          <label for="myCheck">First name:</label> <input type="checkbox" class="form-check-input opcion" id="myCheck" value="opcion1" name = "select">
+                        </div>
+                      </td>
+                      <td>Innovación Tecnológica en la Era Digital</td>
+                      <td>Explora las últimas tendencias tecnológicas y cómo las organizaciones pueden adaptarse.</td>
+                      <td>Gratis</td>
+                      <td>15 de abril de 2024</td>
+                      <td>10:00 AM - 12:00 PM</td>
+                      <td>Asociación de Tecnología e Innovación</td>
+                      <td>Teatro Abdala</td>
+                      <td>Suit 43</td>
+                      <td>15 de 34</td>  
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="container mt-5">
+              <button class="btn btn-primary mt-3" id="myButton" type="button" data-toggle="collapse" data-target="#formularioReserva" aria-expanded="false" aria-controls="formularioReserva" disabled>
+                  Reservar
+              </button>
+              <div class="collapse mt-3" id="formularioReserva">
+                  <form>
+                      <div class="form-group">
+                          <label for="nombre">Nombre:</label>
+                          <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre">
+                      </div>
+                      <div class="form-group">
+                          <label for="correo">Correo electrónico:</label>
+                          <input type="email" class="form-control" id="correo" placeholder="Ingresa tu correo electrónico">
+                      </div>
+                      <button type="submit"  class="btn btn-success">Enviar</button>
+                  </form>
+              </div>
+
+
+          </section>
+
+
+
+
+        </article>
+      </div>
+
+    </div>
+
+
+<!-- Formulario de Incio de Sesion -->
+<div class="modal fade" id="overlay" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <!-- Contenido del formulario de inicio de sesión -->
+      <div class="modal-header">
+        <h5 class="modal-title">Iniciar Sesión</h5>
+        <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">✖️</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="{% url 'inicio' %}">
+          {% csrf_token %}
+
+          <div class="form-group pb-2">
+            <label for="usuario">Usuario</label>
+            <input type="text" class="form-control" id="usuario" placeholder="Ingresa tu usuario" name = "username">
+          </div>
+
+          <div class="form-group pb-2">
+            <label for="contrasena">Contraseña</label>
+            <input type="password" class="form-control" id="contrasena" placeholder="Ingresa tu contraseña" name = "password">
+          </div>
+          <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <p>¿No tienes cuenta? <a href="#" onclick="showRegisterModal()">Regístrate aquí</a></p>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
