@@ -43,26 +43,27 @@ def pagina_organizador(request, pk):
 
 ########### Evento CRUD ##################
 @login_required()
-def update_evento(request):
-    id = request.POST.get('check')
-    print(id)
-    # print(request.POST.get('nombre'))
-    if request.method == 'POST':
-        try:
-            # print('igkushdbkushd',request.POST.get('genero'))
-            
-            event = evento.objects.get(pk=id)
-            
-           
-            # print(fecha)
-            event.titulo = request.POST.get('titulo')
-            event.descripcion = request.POST.get('descripcion')
-            event.fecha = request.POST.get('fecha')
-            event.hora = request.POST.get('hora')
-            event.costo = request.POST.get('costo')
-            event.save()
+def update_evento(request, pk):
+    
 
-            return render(request, 'reserva.html', {'evento':event})
-            
-        except evento.DoesNotExist:
-            return render(request, 'reserva.html', {'evento':event, 'error':True })
+    if request.method == 'POST':
+          
+        id = request.POST.get('check')
+        print(id)
+        Organizador = organizador.objects.get(pk=pk)
+        event = evento.objects.get(pk=id)
+
+        print(event)
+        
+        
+        # print(fecha)
+        event.titulo = request.POST.get('titulo'+id) 
+        event.descripcion = request.POST.get('descripcion'+id) 
+        event.fecha = request.POST.get('fecha'+id) 
+        event.hora = request.POST.get('hora'+id)
+        event.costo = request.POST.get('costo'+id) 
+        event.save()
+
+        return redirect(reverse('organizador', kwargs={'pk': Organizador.pk} ))
+        
+    

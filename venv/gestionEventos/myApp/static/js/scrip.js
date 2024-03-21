@@ -63,12 +63,14 @@ const attendeesList = document.getElementById(`attendeesList${eventId}`);
 attendeesList.style.display = attendeesList.style.display === "none" ? "block" : "none";
 }
 
-const checkbox = document.getElementById("myCheck");
+const checkboxs = document.querySelectorAll('.only-two');
 const button = document.getElementById("myButton");
 
-checkbox.addEventListener("change", () => {
-button.disabled = !checkbox.checked;
-});
+for (let checkbox of checkboxs) {
+    checkbox.addEventListener("change", () => {
+    button.disabled = !checkbox.checked;
+    }); 
+}
 
 const checkbox2 = document.getElementById("myCheck2");
 const button2 = document.getElementById("myButton2");
@@ -101,47 +103,48 @@ function showCreateModal() {
 
 document.querySelector('form').classList.add('was-validated');
 
-const checkboxes = document.querySelectorAll('.opcion');
-  checkboxes.forEach(checkbox => {
-    checkbox.addEventListener('change', () => {
-      checkboxes.forEach(otherCheckbox => {
-        if (otherCheckbox !== checkbox) {
-          otherCheckbox.checked = false;
-        }
-      });
-    });
-  });
+// const checkboxes = document.querySelectorAll('.opcion');
+//   checkboxes.forEach(checkbox => {
+//     checkbox.addEventListener('change', () => {
+//       checkboxes.forEach(otherCheckbox => {
+//         if (otherCheckbox !== checkbox) {
+//           otherCheckbox.checked = false;
+//         }
+//       });
+//     });
+//   });
 
 
   function habilitarEdicion() {
     // Habilita los campos para edición
-    document.getElementById("title").readOnly = false;
-    document.getElementById("description").readOnly = false;
-    document.getElementById("date").readOnly = false;
-    document.getElementById("time").readOnly = false;
-    document.getElementById("cost").readOnly = false;
-    document.getElementById("namePlace").readOnly = false;
-    document.getElementById("direction").readOnly = false;
-    document.getElementById("cap").readOnly = false;
-    document.getElementById("name").readOnly = false;
-    document.getElementById("gmail").readOnly = false;
+    let elements = document.querySelectorAll('.my-input');
+    elements.forEach((element) => {
+        element.readOnly = false;
+    });
+   
     
     
 }
 
 function guardarCambios() {
     // Aquí puedes implementar la lógica para guardar los cambios en una base de datos o donde corresponda
-    document.getElementById("title").readOnly = true;
-    document.getElementById("description").readOnly = true;
-    document.getElementById("date").readOnly = true;
-    document.getElementById("time").readOnly = true;
-    document.getElementById("cost").readOnly = true;
-    document.getElementById("namePlace").readOnly = true;
-    document.getElementById("direction").readOnly = true;
-    document.getElementById("cap").readOnly = true;
-    document.getElementById("name").readOnly = true;
-    document.getElementById("gmail").readOnly = true;
+     let elements = document.querySelectorAll('.my-input');
+    elements.forEach((element) => {
+        element.readOnly = false;
+    });
     document.getElementById("aplicarCambios").readOnly = true;
     
     alert("Cambios guardados correctamente.");
+}
+
+let Checked = null;
+
+// Asigna el evento onclick a los checkboxes
+for (let CheckBox of document.getElementsByClassName('only-one')) {
+    CheckBox.onclick = function () {
+        if (Checked != null) {
+            Checked.checked = false;
+        }
+        Checked = CheckBox;
+    }
 }
