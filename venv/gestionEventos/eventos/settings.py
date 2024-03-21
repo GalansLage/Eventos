@@ -129,3 +129,7 @@ STATIC_DIR = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DATE_FORMAT = "Y-m-d"  # Formato de fecha global
+TIME_INPUT_FORMATS = ('%H:%M',)
+USE_L10N = False  # Desactiva la localización para que no anule DATE_FORMAT

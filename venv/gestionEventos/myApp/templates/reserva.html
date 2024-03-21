@@ -11,44 +11,51 @@
 
             <div class="container mt-4">
                 <h1>Eventos</h1>
-                <table class="table table-striped">
-                    <thead>
-                        <tr class="table-danger">
-                            <th scope="col">Selección</th>
-                            <th scope="col">Título</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Hora</th>
-                            <th scope="col">Costo</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Aquí van las filas de datos (eventos) -->
-                        <!-- Por ejemplo: -->
-                        <tr>
-                            <td>
-                                <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="myCheck">
-                                </div>
-                            </td>
-                            <td><input type="text" id="title" class="form-control" value="Concierto de Jazz" readOnly></td>
-                            <td><input type="text" id="description" class="form-control" value="Disfruta de una noche de jazz en vivo." readOnly></td>
-                            <td><input type="date" id="date" class="form-control" value="2024-07-15" readOnly></td>
-                            <td><input type="time" id="time" class="form-control" value="14:30" readOnly></td>
-                            <td><input type="number" id="cost" class="form-control" value="50" readOnly></td>
+                <form method="POST" action="{% url 'update_evento' %}">
+                    {% csrf_token %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr class="table-danger">
+                                <th scope="col">Selección</th>
+                                <th scope="col">Título</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Hora</th>
+                                <th scope="col">Costo</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Aquí van las filas de datos (eventos) -->
+                            <!-- Por ejemplo: -->
+                            <tr>
+                                {% for evento in eventos %}
+                                <td>
+                                    <div class="form-check">
+                                      <input type="checkbox" class="form-check-input" id="myCheck" value = "{{evento.id_evento}}" name = "check"> 
+                                    </div>
+                                </td>
+                                <td><input type="text" id="title" name = "titulo" class="form-control" value="{{evento.titulo}}" readOnly></td>
+                                <td><input type="text" id="description" name = "descripcion" class="form-control" value="{{evento.descripcion}}" readOnly></td>
+                            <td><input type="date" id="date" name = "fecha" class="form-control" value="{{evento.fecha|date:"Y-m-d"}}" readOnly></td>
+                                <td><input type="time" id="time" name = "hora" class="form-control" value="{{evento.hora|time:"H:i"}}" readOnly></td>
+                                <td><input type="number" id="cost" name = "costo"  class="form-control" value="{{evento.costo}}" readOnly></td>
+    
+                                {% endfor %}
+    
+                            </tr>
+                            <!-- Agrega más filas de eventos aquí -->
+                        </tbody>
+                    </table>
+    
+                    <!-- Botones del crude -->
+    
+                    <button onclick="showLoginModal()" type="button" class="btn btn-success">Crear</button>
+                    <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
+                    <button class="btn btn-warning" type="submit" id="myButton" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
+                    <button class="btn btn-danger" type="button" id="myBut" >Eliminar</button>
 
-                        </tr>
-                        <!-- Agrega más filas de eventos aquí -->
-                    </tbody>
-                </table>
-
-                <!-- Botones del crude -->
-
-                <button onclick="showLoginModal()" type="button" class="btn btn-success">Crear</button>
-                <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
-                <button class="btn btn-warning" type="button" id="myButton" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
-                <button class="btn btn-danger" type="button" id="myBut" >Eliminar</button>
+                </form>
 
            
             
@@ -90,7 +97,7 @@
 
                 <button onclick="showLoginModal2()" type="button" class="btn btn-success">Crear</button>
                 <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
-                <button class="btn btn-warning" type="button" id="myButton2" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
+                <button class="btn btn-warning" type="submit" id="myButton2" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
                 <button class="btn btn-danger" type="button" id="myBu" >Eliminar</button>
 
            

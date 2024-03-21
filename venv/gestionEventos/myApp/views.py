@@ -37,27 +37,32 @@ def pagina_inicio(request):
 def pagina_organizador(request, pk):
     """Este es el detalle organizador"""
     Organizador = organizador.objects.get(pk=pk)
-    return render(request, 'reserva.html', context={'organizador':Organizador})
+    eventos = evento.objects.filter(organizador=Organizador)
+    return render(request, 'reserva.html', context={'organizador':Organizador,'eventos':eventos})
     
 
-# ########### Evento CRUD ##################
-# @login_required()
-# def update_paciente(request, pk):
-#     # print(request.POST.get('nombre'))
-#     if request.method == 'POST':
-#         try:
-#             # print('igkushdbkushd',request.POST.get('genero'))
-#             paciente = Paciente.objects.get(pk = pk)
-#             fecha = request.POST.get('fecha_Nacimiento')
-#             # print(fecha)
-#             paciente.nombre = request.POST.get('nombre')
-#             paciente.apellido = request.POST.get('apellido')
-#             # paciente.fecha_Nacimiento = fecha
-#             # paciente.genero = request.POST.get('genero')
-#             paciente.email = request.POST.get('email')
-#             paciente.save()
-
-#             return render(request, 'paciente.html', {'paciente':paciente})
+########### Evento CRUD ##################
+@login_required()
+def update_evento(request):
+    id = request.POST.get('check')
+    print(id)
+    # print(request.POST.get('nombre'))
+    if request.method == 'POST':
+        try:
+            # print('igkushdbkushd',request.POST.get('genero'))
             
-#         except Paciente.DoesNotExist():
-#             return render(request, 'paciente.html', {'paciente':paciente, 'error':True })
+            event = evento.objects.get(pk=id)
+            
+           
+            # print(fecha)
+            event.titulo = request.POST.get('titulo')
+            event.descripcion = request.POST.get('descripcion')
+            event.fecha = request.POST.get('fecha')
+            event.hora = request.POST.get('hora')
+            event.costo = request.POST.get('costo')
+            event.save()
+
+            return render(request, 'reserva.html', {'evento':event})
+            
+        except evento.DoesNotExist:
+            return render(request, 'reserva.html', {'evento':event, 'error':True })

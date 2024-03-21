@@ -18,7 +18,7 @@
 
     <nav class="mb-0 navbar navbar-expand-lg navbar-dark bg-dark sombra">
         <div class="container">
-          <a href="{% static 'index.html' %}" class="navbar-brand">
+          <a href="{% url 'inicio' %}" class="navbar-brand">
             <img class="rounded-circle" id="logo" src="{% static './img/designer.png' %}" alt="log" >
           </a>
     
@@ -42,6 +42,12 @@
               
             
             </ul>
+
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button class="btn btn-primary wiggle" type="submit">Cerrar Sesion</button>
+            </form>
+
         {% else %}
 
             <button onclick="showLoginModal()" class="btn btn-dark " id="btnLogin">Iniciar Sesión</button>
