@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
@@ -47,23 +47,52 @@ def update_evento(request, pk):
     
 
     if request.method == 'POST':
-          
-        id = request.POST.get('check')
-        print(id)
-        Organizador = organizador.objects.get(pk=pk)
-        event = evento.objects.get(pk=id)
+        if 'form1' in request.POST:
+            id = request.POST.get('check')
+        
+            Organizador = organizador.objects.get(pk=pk)
+            event = evento.objects.get(pk=id)
 
-        print(event)
-        
-        
-        # print(fecha)
-        event.titulo = request.POST.get('titulo'+id) 
-        event.descripcion = request.POST.get('descripcion'+id) 
-        event.fecha = request.POST.get('fecha'+id) 
-        event.hora = request.POST.get('hora'+id)
-        event.costo = request.POST.get('costo'+id) 
-        event.save()
+            event.titulo = request.POST.get('titulo'+id) 
+            event.descripcion = request.POST.get('descripcion'+id) 
+            event.fecha = request.POST.get('fecha'+id) 
+            event.hora = request.POST.get('hora'+id)
+            event.costo = request.POST.get('costo'+id) 
+            event.save()
+        elif 'form2' in request.POST:
+            id = request.POST.get('check')
+            print(id)
+            Organizador = get_object_or_404(organizador, pk=pk)
+            print(Organizador)
+            event = evento.objects.get(pk=id)
+            print(event)
+    
+            event.delete()
+
+       
 
         return redirect(reverse('organizador', kwargs={'pk': Organizador.pk} ))
         
+@login_required()
+def create_evento(request, pk):
     
+
+    if request.method == 'POST':
+        Organizador = get_object_or_404(organizador, pk=pk)
+        event = evento()
+        Sede = get_object_or_404(sede, organizador=Organizador)
+        event.titulo = request.POST.get('titulo') 
+        event.descripcion = request.POST.get('descripcion') 
+        event.fecha = request.POST.get('fecha') 
+        event.hora = request.POST.get('hora')
+        event.costo = request.POST.get('costo') 
+        event.organizador = Organizador
+        event.sede = Sede
+        event.save()
+
+         # Asociar el nuevo evento al organizador
+        
+
+        return redirect(reverse('organizador', kwargs={'pk': Organizador.pk} ))
+        
+

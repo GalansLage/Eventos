@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('logout', auth.LogoutView.as_view(template_name='index.html'), name='logout'),
 
-    path('update_evento/<int:pk>', views.update_evento, name='update_evento')
+    path('update_evento/<int:pk>', views.update_evento, name='update_evento'),
 
+    path('create_evento/<int:pk>', views.create_evento, name='create_evento'),
+   
 ]

@@ -1,31 +1,15 @@
 
 
 
-  function showLoginModal2() {
-    $('#overlay2').modal('show');}  
+function showLoginModal2() {
+  $('#overlay2').modal('show');}  
 
-    function showLoginModal3() {
-      $('#overlay3').modal('show');}  
+  function showLoginModal3() {
+    $('#overlay3').modal('show');}  
 
 function showLoginModal() {
     $('#overlay').modal('show');
 
-    // $('#loginForm').submit(function(e) {
-    //   e.preventDefault();
-
-    //   const usuario = $('#usuario').val();
-    //   const password = $('#contrasena').val();
-
-    //   if (verificarCredenciales(usuario,password)) {
-    //     localStorage.setItem('sesionIniciada',true);
-    //     localStorage.setItem('usuario',usuario);
-    //     $('#overlay').modal('hide');
-    //     let xd = "/reserva";
-    //     window.location.href = 'http://127.0.0.1:8000/reserva';
-    //   }else {
-    //     alert('Credenciales incorrectas');
-    //   }
-    // })
 
   }
 
@@ -72,19 +56,19 @@ for (let checkbox of checkboxs) {
     }); 
 }
 
-const checkbox2 = document.getElementById("myCheck2");
-const button2 = document.getElementById("myButton2");
+// const checkbox2 = document.getElementById("myCheck2");
+// const button2 = document.getElementById("myButton2");
 
-checkbox2.addEventListener("change", () => {
-button2.disabled = !checkbox2.checked;
-});
+// checkbox2.addEventListener("change", () => {
+// button2.disabled = !checkbox2.checked;
+// });
 
-const checkbox3 = document.getElementById("myCheck3");
-const button3 = document.getElementById("myButton3");
+// const checkbox3 = document.getElementById("myCheck3");
+// const button3 = document.getElementById("myButton3");
 
-checkbox3.addEventListener("change", () => {
-button3.disabled = !checkbox3.checked;
-});
+// checkbox3.addEventListener("change", () => {
+// button3.disabled = !checkbox3.checked;
+// });
 
 
 function showCreateModal() {
@@ -103,34 +87,46 @@ function showCreateModal() {
 
 document.querySelector('form').classList.add('was-validated');
 
-// const checkboxes = document.querySelectorAll('.opcion');
-//   checkboxes.forEach(checkbox => {
-//     checkbox.addEventListener('change', () => {
-//       checkboxes.forEach(otherCheckbox => {
-//         if (otherCheckbox !== checkbox) {
-//           otherCheckbox.checked = false;
-//         }
-//       });
-//     });
-//   });
+const checkboxes = document.querySelectorAll('.opcion');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      checkboxes.forEach(otherCheckbox => {
+        if (otherCheckbox !== checkbox) {
+          otherCheckbox.checked = false;
+        }
+      });
+    });
+  });
 
 
-  function habilitarEdicion() {
+  
     // Habilita los campos para edición
     let elements = document.querySelectorAll('.my-input');
+    let boot = document.getElementById("modificar")
+    let hid = document.getElementById("oculto")
+    
     elements.forEach((element) => {
-        element.readOnly = false;
+      if(element.checked){
+        hid.value = element.value
+      }
+
+    })
+
+    boot.addEventListener("click", () => {
+
+      elements.forEach((element) => {
+        element.readOnly = !element.readOnly;
     });
+
+    })
    
-    
-    
-}
+  
 
 function guardarCambios() {
-    // Aquí puedes implementar la lógica para guardar los cambios en una base de datos o donde corresponda
+    
      let elements = document.querySelectorAll('.my-input');
     elements.forEach((element) => {
-        element.readOnly = false;
+        element.readOnly = true;
     });
     document.getElementById("aplicarCambios").readOnly = true;
     
@@ -148,3 +144,4 @@ for (let CheckBox of document.getElementsByClassName('only-one')) {
         Checked = CheckBox;
     }
 }
+

@@ -4,7 +4,7 @@
 {% block contenido %}
     
 
-      <div id="content" class="p-4 p-md-5">
+    <div id="content" class="p-4 p-md-5">
         <article>
           <section id="seccion1" class="seccion-visible">
 
@@ -13,57 +13,63 @@
                 <h1>Eventos</h1>
                 <form method="POST" action="{% url 'update_evento' organizador.pk %}">
                     {% csrf_token %}
-                    <table class="table table-striped">
-                        <thead>
-                            <tr class="table-danger">
-                                <th scope="col">Selección</th>
-                                <th scope="col">Título</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Hora</th>
-                                <th scope="col">Costo</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Aquí van las filas de datos (eventos) -->
-                            <!-- Por ejemplo: -->
-                            {% for evento in eventos %}
-                            <tr>
-                                
-                                <td>
-                                    <div class="form-check">
-                                        <label>{{evento.id_evento}}</label>
-                                      <input type="checkbox" class="form-check-input only-one only-two"  value = "{{evento.id_evento}}" name = "check"> 
-                                    </div>
-                                </td>
-                                <td><input type="text"  name = "titulo{{evento.id_evento}}" class="form-control my-input" value="{{evento.titulo}}" readOnly></td>
-                                <td><input type="text"  name = "descripcion{{evento.id_evento}}" class="form-control my-input" value="{{evento.descripcion}}" readOnly></td>
-                            <td><input type="date"  name = "fecha{{evento.id_evento}}" class="form-control my-input" value="{{evento.fecha|date:"Y-m-d"}}" readOnly></td>
-                                <td><input type="time"  name = "hora{{evento.id_evento}}" class="form-control my-input" value="{{evento.hora|time:"H:i"}}" readOnly></td>
-                                <td><input type="number"  name = "costo{{evento.id_evento}}"  class="form-control my-input" value="{{evento.costo}}" readOnly></td>
-    
-                            </tr>
-                            {% endfor %}
-                            <!-- Agrega más filas de eventos aquí -->
-                        </tbody>
-                    </table>
+                    <div class = "table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr class="table-danger">
+                                    <th scope="col">Selección</th>
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Hora</th>
+                                    <th scope="col">Costo</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Aquí van las filas de datos (eventos) -->
+                                <!-- Por ejemplo: -->
+                                {% for evento in eventos %}
+                                <tr>
+                                    
+                                    <td>
+                                        <div class="form-check">
+                                          <input type="checkbox" class="form-check-input opcion only-one only-two "  value = "{{evento.id_evento}}" name = "check"> 
+                                        </div>
+                                    </td>
+                                    <td><input type="text"  name = "titulo{{evento.id_evento}}" class="form-control my-input" value="{{evento.titulo}}" readOnly></td>
+                                    <td><input type="text"  name = "descripcion{{evento.id_evento}}" class="form-control my-input" value="{{evento.descripcion}}" readOnly></td>
+                                <td><input type="date"  name = "fecha{{evento.id_evento}}" class="form-control my-input" value="{{evento.fecha|date:"Y-m-d"}}" readOnly></td>
+                                    <td><input type="time"  name = "hora{{evento.id_evento}}" class="form-control my-input" value="{{evento.hora|time:"H:i"}}" readOnly></td>
+                                    <td><input type="number"  name = "costo{{evento.id_evento}}"  class="form-control my-input" value="{{evento.costo}}" readOnly></td>
+        
+                                </tr>
+                                {% endfor %}
+                                <!-- Agrega más filas de eventos aquí -->
+                            </tbody>
+                        </table>
+                    </div>
     
                     <!-- Botones del crude -->
     
                     <button onclick="showLoginModal()" type="button" class="btn btn-success">Crear</button>
                     <button class="btn btn-warning" type="button" id="modificar" onclick="habilitarEdicion()">Modificar</button>
-                    <button class="btn btn-warning" type="submit" id="myButton" onclick="guardarCambios()" disabled>Aplicar Cambios</button>
-                    <button class="btn btn-danger" type="button" id="myBut" >Eliminar</button>
-
+                    <button class="btn btn-warning" type="submit" id="myButton" onclick="guardarCambios()" name = "form1" disabled>Aplicar Cambios</button>    
+                    <button class="btn btn-danger" type="submit" id="myBut" name= "form2">Eliminar</button>
+                
+                    
+                    
                 </form>
+                
+
+               
 
            
             
             
         
           </section>
-          <section id="seccion2" class="seccion-oculta">
+          {% comment %} <section id="seccion2" class="seccion-oculta">
             <div class="container mt-4">
                 <h1>Locaciones</h1>
                 <table class="table table-striped">
@@ -143,7 +149,7 @@
 
            
             
-          </section>
+          </section> {% endcomment %}
           
         </article>
       </div>
@@ -152,7 +158,6 @@
 <div class="modal fade" id="overlay" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <!-- Contenido del formulario de inicio de sesión -->
         <div class="modal-header">
           <h5 class="modal-title">Crear Evento</h5>
           <button type="button" class="close border-0 bg-white" data-dismiss="modal" aria-label="Close">
@@ -160,30 +165,28 @@
           </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form method = "POST" action="{% url 'create_evento' organizador.pk %}">
+                {% csrf_token %}
+                
                 <div class="form-group">
                     <label for="titulo" class="form-label">Título</label>
-                    <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título" required>
+                    <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título" name = "titulo" required>
                 </div>
                 <div class="form-group">
                     <label for="descripcion" class="form-label">Descripción</label>
-                    <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción" required></textarea>
+                    <textarea class="form-control" id="descripcion" rows="3" placeholder="Ingrese la descripción" name = "descripcion" required></textarea>
                 </div>
                 <div class="form-group">
                     <label for="costo" class="form-label">Costo</label>
-                    <input type="text" class="form-control" id="costo" placeholder="Ingrese el costo" required>
+                    <input type="text" class="form-control" id="costo" placeholder="Ingrese el costo" name = "costo" required>
                 </div>
                 <div class="form-group">
                     <label for="fecha" class="form-label">Fecha</label>
-                    <input type="date" class="form-control" id="fecha" required>
+                    <input type="date" class="form-control" id="fecha" name = "fecha" required>
                 </div>
                 <div class="form-group">
                     <label for="hora" class="form-label">Hora</label>
-                    <input type="time" class="form-control" id="hora" required>
-                </div>
-                <div class="form-group">
-                    <label for="organizador" class="form-label">Organizador</label>
-                    <input type="text" class="form-control" id="organizador" placeholder="Ingrese el nombre del organizador" required>
+                    <input type="time" class="form-control" id="hora" name = "hora" required>
                 </div>
                 
                 <button type="submit" class="btn btn-primary">Crear</button>
@@ -205,7 +208,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form>
+            <form method = "POST" >
                 <div class="form-group">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="titulo" placeholder="Ingrese el título" required>
